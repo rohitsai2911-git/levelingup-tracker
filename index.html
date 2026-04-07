@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LevelingUp Tracker - Your Fitness Journey</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container large">
+        <nav>
+            <div class="nav-content">
+                <div class="logo">
+                    <div class="logo-icon">LU</div>
+                    <span class="logo-text">LevelingUp</span>
+                </div>
+                
+                <div class="nav-links">
+                    <a href="#hero" class="nav-link">Home</a>
+                    <a href="#calculator" class="nav-link">Calculator</a>
+                    <a href="#workouts" class="nav-link">Workouts</a>
+                    <a href="#nutrition" class="nav-link">Nutrition</a>
+                    <a href="#progress" class="nav-link">Progress</a>
+                    <a href="#library" class="nav-link">Library</a>
+                </div>
+
+                <div class="client-selector">
+                    <button class="client-btn" id="clientBtn">
+                        <span id="currentClientName">Select Client</span>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </button>
+                    <div class="client-dropdown" id="clientDropdown">
+                        <div class="client-dropdown-header">Your Clients</div>
+                        <div class="client-list" id="clientList"></div>
+                        <div class="client-actions">
+                            <button class="add-client-btn" id="addClientBtn">+ Add New Client</button>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="mobile-menu-btn" id="mobileMenuBtn">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+            <div class="mobile-menu" id="mobileMenu">
+                <a href="#hero">Home</a>
+                <a href="#calculator">Calculator</a>
+                <a href="#workouts">Workouts</a>
+                <a href="#nutrition">Nutrition</a>
+                <a href="#progress">Progress</a>
+                <a href="#library">Library</a>
+            </div>
+        </nav>
+    </div>
+
+    <main>
+        <div class="container large">
+            <section class="hero" id="hero">
+                <div class="hero-image" id="heroImage">
+                    <div class="hero-image-placeholder">💪</div>
+                </div>
+                <div class="hero-content">
+                    <div class="hero-badge">System Active</div>
+                    <h1>LevelingUp Tracker</h1>
+                    <p>Transform your fitness journey into an epic adventure. Track workouts, calculate calories, get personalized nutrition, and level up your health.</p>
+                    
+                    <div class="hero-buttons">
+                        <a href="#calculator" class="btn btn-primary">
+                            Start Your Journey
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                                <polyline points="12 5 19 12 12 19"></polyline>
+                            </svg>
+                        </a>
+                        <a href="#workouts" class="btn btn-secondary">Browse Workouts</a>
+                    </div>
+
+                    <div id="heroStats" class="hero-stats hidden">
+                        <div class="hero-stat">
+                            <div class="hero-stat-value" id="heroLevel">1</div>
+                            <div class="hero-stat-label">Level</div>
+                        </div>
+                        <div class="hero-stat">
+                            <div class="hero-stat-value" id="heroXP">0</div>
+                            <div class="hero-stat-label">XP</div>
+                        </div>
+                        <div class="hero-stat">
+                            <div class="hero-stat-value" id="heroWorkouts">0</div>
+                            <div class="hero-stat-label">Workouts</div>
+                        </div>
+                        <div class="hero-stat">
+                            <div class="hero-stat-value" id="heroStreak">0</div>
+                            <div class="hero-stat-label">Streak</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section" id="calculator">
+                <div class="section-header">
+                    <h2>Calorie Calculator</h2>
+                    <p>Calculate your daily calorie needs and get personalized macro targets based on your fitness goals.</p>
+                </div>
+
+                <div class="tabs">
+                    <button class="tab-btn active" data-tab="profile-tab">Profile Setup</button>
+                    <button class="tab-btn" data-tab="stats-tab">Your Stats</button>
+                </div>
+
+                <div id="profile-tab" class="tab-content active">
+                    <div class="calculator-grid">
+                        <div class="card">
+                            <div class="card-icon">👤</div>
+                            <h3>Client Profile</h3>
+                            <p>Enter your details to calculate your daily calorie needs and recommended macros.</p>
+                            
+                            <form id="profileForm" class="form" style="margin-top: 1.5rem;">
+                                <div class="form-group">
+                                    <label class="form-label">Client Name</label>
+                                    <input type="text" class="form-input" id="clientName" placeholder="Enter client name" required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Profile Image (Optional)</label>
+                                    <div class="image-upload-area" id="imageUploadArea">
+                                        <input type="file" id="clientImage" accept="image/*">
+                                        <div class="image-upload-icon">📷</div>
+                                        <div class="image-upload-text">Click or drag to upload image</div>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label class="form-label">Weight (kg)</label>
+                                        <input type="number" class="form-input" id="weight" placeholder="70" step="0.1" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">Height (cm)</label>
+                                        <input type="number" class="form-input" id="height" placeholder="175" required>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label class="form-label">Age</label>
+                                        <input type="number" class="form-input" id="age" placeholder="25" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">Gender</label>
+                                        <select class="form-input" id="gender" required>
+                                            <option value="male">Male</option>
+                                            <option value="female">Female</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Activity Level</label>
+                                    <select class="form-input" id="activityLevel" required>
+                                        <option value="sedentary">Sedentary (little or no exercise)</option>
+                                        <option value="light">Light (exercise 1-3 days/week)</option>
+                                        <option value="moderate" selected>Moderate (exercise 3-5 days/week)</option>
+                                        <option value="active">Active (exercise 6-7 days/week)</option>
+                                        <option value="very_active">Very Active (hard exercise daily)</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Fitness Goal</label>
+                                    <select class="form-input" id="goal" required>
+                                        <option value="weight_loss">Weight Loss</option>
+                                        <option value="maintenance" selected>Maintenance</option>
+                                        <option value="muscle_gain">Muscle Gain</option>
+                                    </select>
+                                </div>
+                                <button type="submit" class="btn btn-primary btn-full">Calculate & Save Profile</button>
+                            </form>
+                        </div>
+
+                        <div id="calcResults" class="card hidden">
+                            <div class="card-icon">📊</div>
+                            <h3>Your Results</h3>
+                            <p>Here's your personalized fitness data based on your profile.</p>
+                            
+                            <div class="calc-result">
+                                <h4>Body Mass Index (BMI)</h4>
+                                <span class="calc-result-value" id="bmiValue">0</span>
+                                <span class="calc-result-unit">kg/m²</span>
+                                <p class="calc-result-description" id="bmiCategory">-</p>
+                            </div>
+
+                            <div class="calc-result">
+                                <h4>Basal Metabolic Rate (BMR)</h4>
+                                <span class="calc-result-value" id="bmrValue">0</span>
+                                <span class="calc-result-unit">kcal/day</span>
+                                <p class="calc-result-description">Calories your body burns at rest</p>
+                            </div>
+
+                            <div class="calc-result">
+                                <h4>Total Daily Energy Expenditure (TDEE)</h4>
+                                <span class="calc-result-value" id="tdeeValue">0</span>
+                                <span class="calc-result-unit">kcal/day</span>
+                                <p class="calc-result-description" id="tdeeGoal">-</p>
+                            </div>
+
+                            <div class="macro-grid">
+                                <div class="macro-item">
+                                    <div class="macro-item-value" style="color: #f87171;">P</div>
+                                    <div class="macro-item-value" id="proteinTarget">0g</div>
+                                    <div class="macro-item-label">Protein</div>
+                                </div>
+                                <div class="macro-item">
+                                    <div class="macro-item-value" style="color: #fbbf24;">C</div>
+                                    <div class="macro-item-value" id="carbsTarget">0g</div>
+                                    <div class="macro-item-label">Carbs</div>
+                                </div>
+                                <div class="macro-item">
+                                    <div class="macro-item-value" style="color: #60a5fa;">F</div>
+                                    <div class="macro-item-value" id="fatsTarget">0g</div>
+                                    <div class="macro-item-label">Fats</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="stats-tab" class="tab-content">
+                    <div class="card-grid">
+                        <div class="card">
+                            <div class="card-icon">⚖️</div>
+                            <h3>Current Weight</h3>
+                            <div class="calc-result-value" id="currentWeight">-</div>
+                            <p class="calc-result-description">kg</p>
+                        </div>
+                        <div class="card">
+                            <div class="card-icon">🎯</div>
+                            <h3>Goal Weight</h3>
+                            <div class="calc-result-value" id="goalWeight">-</div>
+                            <p class="calc-result-description">kg</p>
+                        </div>
+                        <div class="card">
+                            <div class="card-icon">📈</div>
+                            <h3>Weekly Target</h3>
+                            <div class="calc-result-value" id="weeklyTarget">-</div>
+                            <p class="calc-result-description">kg/week</p>
+                        </div>
+                    </div>
+                    
+                    <div class="card" style="margin-top: 2rem;">
+                        <div class="card-icon">📖</div>
+                        <h3>Activity Multiplier Guide</h3>
+                        <div class="activity-grid">
+                            <div class="activity-item">
+                                <strong>1.2x</strong> - Sedentary
+                                <p>Little or no exercise</p>
+                            </div>
+                            <div class="activity-item">
+                                <strong>1.375x</strong> - Light
+                                <p>1-3 days/week</p>
+                            </div>
+                            <div class="activity-item">
+                                <strong>1.55x</strong> - Moderate
+                                <p>3-5 days/week</p>
+                            </div>
+                            <div class="activity-item">
+                                <strong>1.725x</strong> - Active
+                                <p>6-7 days/week</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section" id="workouts">
+                <div class="section-header">
+                    <h2>Workout Library</h2>
+                    <p>Explore our comprehensive database of exercises. Search by muscle group or difficulty level.</p>
+                </div>
+
+                <div class="workout-search">
+                    <input type="text" class="search-input" id="workoutSearch" placeholder="Search exercises...">
+                </div>
+
+                <div class="workout-filters" id="workoutFilters">
+                    <button class="filter-btn active" data-filter="all">All</button>
+                    <button class="filter-btn" data-filter="chest">Chest</button>
+                    <button class="filter-btn" data-filter="back">Back</button>
+                    <button class="filter-btn" data-filter="shoulders">Shoulders</button>
+                    <button class="filter-btn" data-filter="arms">Arms</button>
+                    <button class="filter-btn" data-filter="legs">Legs</button>
+                    <button class="filter-btn" data-filter="core">Core</button>
+                    <button class="filter-btn" data-filter="cardio">Cardio</button>
+                </div>
+
+                <div id="workoutList" class="card-grid"></div>
+
+                <div class="log-workout-form" id="logWorkoutForm">
+                    <h3>Log Today's Workout</h3>
+                    <p>Selected exercises will be added to your workout log.</p>
+                    
+                    <div class="selected-exercises" id="selectedExercises"></div>
+                    
+                    <div class="form-row" style="margin-top: 1rem;">
+                        <div class="form-group">
+                            <label class="form-label">Duration (minutes)</label>
+                            <input type="number" class="form-input" id="workoutDuration" placeholder="60" min="1">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Calories Burned</label>
+                            <input type="number" class="form-input" id="caloriesBurned" placeholder="300" min="1">
+                        </div>
+                    </div>
+                    
+                    <button class="btn btn-primary start-workout-btn" id="logWorkoutBtn">Log Workout & Earn XP</button>
+                </div>
+            </section>
+
+            <section class="section" id="nutrition">
+                <div class="section-header">
+                    <h2>Nutrition Guide</h2>
+                    <p>Personalized food recommendations based on your profile and fitness goals.</p>
+                </div>
+
+                <div id="nutritionContent">
+                    <div class="welcome-message" style="text-align: center;">
+                        <p>Complete your profile first to see personalized nutrition recommendations.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section" id="progress">
+                <div class="section-header">
+                    <h2>Your Progress</h2>
+                    <p>Track your fitness journey with detailed stats, charts, and achievements.</p>
+                </div>
+
+                <div id="progressContent">
+                    <div class="progress-grid" id="progressStats">
+                        <div class="progress-stat">
+                            <div class="progress-stat-icon">⭐</div>
+                            <div class="progress-stat-value" id="progressLevel">1</div>
+                            <div class="progress-stat-label">Level</div>
+                        </div>
+                        <div class="progress-stat">
+                            <div class="progress-stat-icon">💎</div>
+                            <div class="progress-stat-value" id="progressXP">0</div>
+                            <div class="progress-stat-label">Total XP</div>
+                            <div class="xp-bar" style="margin-top: 0.75rem;">
+                                <div class="xp-bar-fill" id="progressXPBar" style="width: 0%"></div>
+                            </div>
+                            <div class="xp-text">
+                                <span>0 XP</span>
+                                <span id="xpToNext">100 to next</span>
+                            </div>
+                        </div>
+                        <div class="progress-stat">
+                            <div class="progress-stat-icon">🏋️</div>
+                            <div class="progress-stat-value" id="progressWorkouts">0</div>
+                            <div class="progress-stat-label">Workouts</div>
+                        </div>
+                        <div class="progress-stat">
+                            <div class="progress-stat-icon">🔥</div>
+                            <div class="progress-stat-value" id="progressStreak">0</div>
+                            <div class="progress-stat-label">Day Streak</div>
+                        </div>
+                        <div class="progress-stat">
+                            <div class="progress-stat-icon">⚡</div>
+                            <div class="progress-stat-value" id="progressCalories">0</div>
+                            <div class="progress-stat-label">Calories Burned</div>
+                        </div>
+                    </div>
+
+                    <div class="chart-container">
+                        <div class="chart-header">
+                            <h3>Weight Progress</h3>
+                            <div class="chart-tabs">
+                                <button class="chart-tab active" data-range="week">Week</button>
+                                <button class="chart-tab" data-range="month">Month</button>
+                                <button class="chart-tab" data-range="all">All</button>
+                            </div>
+                        </div>
+                        <div class="chart-canvas" id="weightChart"></div>
+                    </div>
+
+                    <div class="workout-log">
+                        <div class="workout-log-header">
+                            <h3>Workout History</h3>
+                        </div>
+                        <div id="workoutHistory">
+                            <div class="empty-state">
+                                <div class="empty-state-icon">📝</div>
+                                <p>No workouts logged yet. Start your first workout!</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card" style="margin-top: 2rem;">
+                        <h3 style="margin-bottom: 1.5rem;">🏆 Achievements</h3>
+                        <div class="achievements-grid" id="achievementsGrid"></div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section" id="library">
+                <div class="section-header">
+                    <h2>Your Library</h2>
+                    <p>Manage your custom exercises and favorite foods.</p>
+                </div>
+
+                <div id="libraryContent">
+                    <div class="custom-exercises">
+                        <div class="library-section-header">
+                            <h3>Custom Exercises</h3>
+                            <button class="btn btn-secondary" id="addCustomExerciseBtn">+ Add</button>
+                        </div>
+                        <div id="customExercises">
+                            <div class="empty-state">
+                                <div class="empty-state-icon">✨</div>
+                                <p>No custom exercises yet. Click + Add to create one.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>LevelingUp Tracker - Transform your fitness journey into an epic adventure.</p>
+        </div>
+    </footer>
+
+    <div class="modal-overlay" id="addClientModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Add New Client</h3>
+                <button class="modal-close" id="closeClientModal">&times;</button>
+            </div>
+            <form id="newClientForm">
+                <div class="form-group">
+                    <label class="form-label">Client Name</label>
+                    <input type="text" class="form-input" id="newClientName" placeholder="Enter client name" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Profile Image (Optional)</label>
+                    <div class="image-upload-area" id="modalImageUpload">
+                        <input type="file" id="newClientImage" accept="image/*">
+                        <div class="image-upload-icon">📷</div>
+                        <div class="image-upload-text">Upload photo</div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Weight (kg)</label>
+                        <input type="number" class="form-input" id="newClientWeight" placeholder="70" step="0.1" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Height (cm)</label>
+                        <input type="number" class="form-input" id="newClientHeight" placeholder="175" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Age</label>
+                        <input type="number" class="form-input" id="newClientAge" placeholder="25" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Gender</label>
+                        <select class="form-input" id="newClientGender" required>
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Activity Level</label>
+                    <select class="form-input" id="newClientActivity" required>
+                        <option value="sedentary">Sedentary</option>
+                        <option value="light">Light</option>
+                        <option value="moderate" selected>Moderate</option>
+                        <option value="active">Active</option>
+                        <option value="very_active">Very Active</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Fitness Goal</label>
+                    <select class="form-input" id="newClientGoal" required>
+                        <option value="weight_loss">Weight Loss</option>
+                        <option value="maintenance">Maintenance</option>
+                        <option value="muscle_gain" selected>Muscle Gain</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary btn-full">Create Client</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="customExerciseModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Add Custom Exercise</h3>
+                <button class="modal-close" id="closeExerciseModal">&times;</button>
+            </div>
+            <form id="customExerciseForm">
+                <div class="form-group">
+                    <label class="form-label">Exercise Name</label>
+                    <input type="text" class="form-input" id="customExerciseName" placeholder="Enter exercise name" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Target Muscle Group</label>
+                    <select class="form-input" id="customExerciseMuscle" required>
+                        <option value="chest">Chest</option>
+                        <option value="back">Back</option>
+                        <option value="shoulders">Shoulders</option>
+                        <option value="arms">Arms</option>
+                        <option value="legs">Legs</option>
+                        <option value="core">Core</option>
+                        <option value="cardio">Cardio</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Difficulty</label>
+                    <select class="form-input" id="customExerciseDifficulty" required>
+                        <option value="beginner">Beginner</option>
+                        <option value="intermediate">Intermediate</option>
+                        <option value="advanced">Advanced</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Exercise Image (Optional)</label>
+                    <div class="image-upload-area" id="exerciseImageUpload">
+                        <input type="file" id="customExerciseImage" accept="image/*">
+                        <div class="image-upload-icon">📷</div>
+                        <div class="image-upload-text">Upload exercise photo</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Instructions</label>
+                    <textarea class="form-input" id="customExerciseInstructions" rows="3" placeholder="Enter exercise instructions"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary btn-full">Add Exercise</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
